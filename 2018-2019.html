@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bergensligaen i Bordhockey – 2018/2019</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --primary:#1e40af; --primary-600:#1e3a8a; --bg:#0f172a; --panel:#ffffff; --muted:#6b7280; --accent:#f59e0b;
+            --border:#e5e7eb; --good:#10b981; --warn:#f59e0b; --bad:#ef4444; --radius:12px; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Inter, system-ui, sans-serif; background:linear-gradient(135deg,#667eea,#764ba2); color:#0f172a; }
+    .wrap { max-width:1400px; margin:0 auto; padding:24px; }
+    h1 { color:#fff; text-align:center; margin:8px 0 2px; font-weight:800 }
+    .sub { color:#fff; text-align:center; opacity:.9; margin-bottom:8px }
+    .season-nav { display:flex; gap:10px; justify-content:center; align-items:center; margin-bottom:16px; color:#fff; }
+    .season-select { padding:10px 12px; border:1px solid var(--border); border-radius:10px; min-width:220px; }
+    .toolbar { display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:center; margin:16px 0 20px; }
+    .btn { border:1px solid var(--border); background:#fff; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:600; text-decoration:none; display:inline-block; }
+    .btn.primary { background:var(--primary); color:#fff; border-color:var(--primary-600); }
+    .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin:14px 0 22px; }
+    .card { background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:14px; text-align:center; box-shadow: 0 8px 20px rgba(0,0,0,.06); }
+    .card h3 { margin:0; color:var(--muted); font-size:12px; text-transform:uppercase; letter-spacing:.06em }
+    .val { font-size:26px; font-weight:800; margin-top:6px; color:var(--primary) }
+    .tablebox { background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+    .scroll { overflow:auto; }
+    table { border-collapse:collapse; width:100%; font-size:14px; }
+    thead th { position:sticky; top:0; background:#f8fafc; border-bottom:2px solid var(--border); padding:10px; text-align:center; white-space:nowrap; cursor:pointer; user-select:none; }
+    th:first-child, td:first-child { position:sticky; left:0; z-index:2; background:#fff; border-right:1px solid var(--border); text-align:left; }
+    th:nth-child(2), td:nth-child(2) { text-align:left; }
+    tbody td { border-bottom:1px solid var(--border); padding:10px; text-align:center; white-space:nowrap; }
+    tbody tr:hover { background:#f3f4f6; }
+    .rank { font-weight:800; color:#111827; }
+    .name { font-weight:600; color:#111827; }
+    .topp17 { font-weight:800; color:var(--accent); background:#fff7ed; }
+    .chip { background:#f1f5f9; border:1px solid var(--border); padding:2px 8px; border-radius:999px; font-size:12px; }
+    .collapsed th.league, .collapsed td.league { display:none; }
+    td[data-score="100"]{ background:rgba(16,185,129,.10); font-weight:800; color:var(--good); }
+    td[data-score="85"] { background:rgba(16,185,129,.08); color:var(--good); font-weight:700; }
+    td[data-score="75"] { background:rgba(16,185,129,.06); color:var(--good); font-weight:700; }
+    td[data-score="65"],td[data-score="60"],td[data-score="55"],td[data-score="50"]{ color:var(--warn); font-weight:700; }
+    td[data-score="0"]  { color:var(--bad); opacity:.9; }
+    .th-meta { display:block; font-size:11px; color:#475569; font-weight:600; }
+    .th-meta a{ color:inherit; text-decoration:none; border-bottom:1px dashed #94a3b8; }
+    .th-meta small{ font-weight:500; color:#64748b }
+    .foot { color:#fff; text-align:center; margin-top:18px; opacity:.9 }
+    @media (max-width: 860px) { .btn, .season-select { width:100%; max-width:520px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Bergensligaen i Bordhockey</h1>
+    <div class="sub">Sesong 2018/2019 – topp 17 teller</div>
+    <div class="season-nav"><span>Sesong:</span><select id='seasonSelect' class='season-select'><option value='2003-2004.html'>2003/2004</option><option value='2004-2005.html'>2004/2005</option><option value='2005-2006.html'>2005/2006</option><option value='2006-2007.html'>2006/2007</option><option value='2007-2008.html'>2007/2008</option><option value='2008-2009.html'>2008/2009</option><option value='2009-2010.html'>2009/2010</option><option value='2010-2011.html'>2010/2011</option><option value='2011-2012.html'>2011/2012</option><option value='2012-2013.html'>2012/2013</option><option value='2013-2014.html'>2013/2014</option><option value='2014-2015.html'>2014/2015</option><option value='2015-2016.html'>2015/2016</option><option value='2016-2017.html'>2016/2017</option><option value='2017-2018.html'>2017/2018</option><option value='2018-2019.html' selected>2018/2019</option><option value='2019-2020.html'>2019/2020</option><option value='2020-2021.html'>2020/2021</option><option value='2021-2022.html'>2021/2022</option><option value='2022-2023.html'>2022/2023</option><option value='2023-2024.html'>2023/2024</option><option value='2024-2025.html'>2024/2025</option><option value='2025-2026.html'>2025/2026</option></select></div>
+
+    <div class="cards" id="stats">
+      <div class="card"><h3>Antall spillere</h3><div class="val" id="stat_players">-</div></div>
+      <div class="card"><h3>Antall ligaer</h3><div class="val" id="stat_leagues">-</div></div>
+      <div class="card"><h3>Maks deltakere</h3><div class="val" id="stat_maxpart">-</div></div>
+      <div class="card"><h3>Snitt deltakere</h3><div class="val" id="stat_avgpart">-</div></div>
+    </div>
+
+    <div class="toolbar">
+    <button id="toggle" class="btn">Vis alle ligaer</button>
+    <a href="stats.html?season=2018-2019" class="btn primary">Sesongstatistikk</a>
+    </div>
+
+
+    <div class="tablebox"><div class="scroll"><table id="tbl" class="collapsed">
+      <thead><tr>
+        <th data-key="Rank" aria-sort="descending">#</th>
+        <th data-key="Spiller">Spiller</th>
+        <th data-key="Topp 17">Topp 17</th>
+        <th data-key="Tellende">Tellende</th>
+        <th data-key="Spilt">Spilt</th>
+        <th data-key="Snitt">Snitt</th>
+        <th data-key="Seire">Seire</th>
+        <th data-key="Pallplasseringer">Pallplasseringer</th>
+        <th class="league" data-key="#1" title="Vinner: Espen Eidsnes (100)">#1<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27320" target="_blank" rel="noopener">Bergensliga Autumn 2018 #1</a> · 15.08 · <small>4 spillere</small></span></th>
+        <th class="league" data-key="#2" title="Vinner: Arne Johannes Holmin (100)">#2<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27013" target="_blank" rel="noopener">Bergensliga Autumn 2018 #2</a> · 22.08 · <small>5 spillere</small></span></th>
+        <th class="league" data-key="#3" title="Vinner: Vegard Flatoy (100)">#3<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27024" target="_blank" rel="noopener">Bergensliga Autumn 2018 #3</a> · 28.08 · <small>4 spillere</small></span></th>
+        <th class="league" data-key="#4" title="Vinner: Hans Christian Lonne (100)">#4<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27051" target="_blank" rel="noopener">Bergensliga Autumn 2018 #4</a> · 05.09 · <small>3 spillere</small></span></th>
+        <th class="league" data-key="#5" title="Vinner: Hans Christian Lonne (100)">#5<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27111" target="_blank" rel="noopener">Bergensliga Autumn 2018 #5</a> · 12.09 · <small>3 spillere</small></span></th>
+        <th class="league" data-key="#6" title="Vinner: Espen Eidsnes (100)">#6<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27133" target="_blank" rel="noopener">Bergensliga Autumn 2018 #6</a> · 19.09 · <small>5 spillere</small></span></th>
+        <th class="league" data-key="#7" title="Vinner: Arne Johannes Holmin (100)">#7<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27239" target="_blank" rel="noopener">Bergensliga Autumn 2018 #7</a> · 04.10 · <small>7 spillere</small></span></th>
+        <th class="league" data-key="#8" title="Vinner: Arne Johannes Holmin (100)">#8<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27317" target="_blank" rel="noopener">Bergensliga Autumn 2018 #8</a> · 10.10 · <small>5 spillere</small></span></th>
+        <th class="league" data-key="#9" title="Vinner: Trond Ove Gangsoy (100)">#9<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27306" target="_blank" rel="noopener">Bergensliga Autumn 2018 #9</a> · 17.10 · <small>4 spillere</small></span></th>
+        <th class="league" data-key="#10" title="Vinner: Arne Johannes Holmin (100)">#10<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27340" target="_blank" rel="noopener">Bergensliga Autumn 2018 #10</a> · 24.10 · <small>4 spillere</small></span></th>
+        <th class="league" data-key="#11" title="Vinner: Arne Johannes Holmin (100)">#11<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27359" target="_blank" rel="noopener">Bergensliga Autumn 2018 #11</a> · 31.10 · <small>7 spillere</small></span></th>
+        <th class="league" data-key="#12" title="Vinner: Espen Eidsnes (100)">#12<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27396" target="_blank" rel="noopener">Bergensliga Autumn 2018 #12</a> · 07.11 · <small>5 spillere</small></span></th>
+        <th class="league" data-key="#13" title="Vinner: Espen Eidsnes (100)">#13<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27507" target="_blank" rel="noopener">Bergensliga Autumn 2018 #13</a> · 14.11 · <small>5 spillere</small></span></th>
+        <th class="league" data-key="#14" title="Vinner: Ewoud van Veen (100)">#14<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27506" target="_blank" rel="noopener">Bergensliga Autumn 2018 #14</a> · 21.11 · <small>4 spillere</small></span></th>
+        <th class="league" data-key="#15" title="Vinner: Arne Johannes Holmin (100)">#15<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27514" target="_blank" rel="noopener">Bergensliga Autumn 2018 #15</a> · 27.11 · <small>6 spillere</small></span></th>
+        <th class="league" data-key="#16" title="Vinner: Arne Johannes Holmin (100)">#16<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27541" target="_blank" rel="noopener">Bergensliga Autumn 2018 #16</a> · 05.12 · <small>4 spillere</small></span></th>
+        <th class="league" data-key="#17" title="Vinner: Hans Christian Lonne (100)">#17<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27568" target="_blank" rel="noopener">Bergensliga Autumn 2018 #17</a> · 12.12 · <small>6 spillere</small></span></th>
+        <th class="league" data-key="#18" title="Vinner: Espen Eidsnes (100)">#18<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27695" target="_blank" rel="noopener">Bergensliga Autumn 2018 #18</a> · 19.12 · <small>4 spillere</small></span></th>
+        <th class="league" data-key="#19" title="Vinner: Hans Christian Lonne (100)">#19<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27696" target="_blank" rel="noopener">Bergensliga Spring 2019 #1</a> · 09.01 · <small>7 spillere</small></span></th>
+        <th class="league" data-key="#20" title="Vinner: Espen Eidsnes (100)">#20<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27715" target="_blank" rel="noopener">Bergensliga Spring 2019 #2</a> · 16.01 · <small>6 spillere</small></span></th>
+        <th class="league" data-key="#21" title="Vinner: Arne Johannes Holmin (100)">#21<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27789" target="_blank" rel="noopener">* Bergensliga Spring 2019 #3</a> · 23.01 · <small>3 spillere</small></span></th>
+        <th class="league" data-key="#22" title="Vinner: Ewoud van Veen (100)">#22<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27890" target="_blank" rel="noopener">Bergensliga Spring 2019 #4</a> · 30.01 · <small>5 spillere</small></span></th>
+        <th class="league" data-key="#23" title="Vinner: Arne Johannes Holmin (100)">#23<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27911" target="_blank" rel="noopener">Bergensliga Spring 2019 #5</a> · 07.02 · <small>5 spillere</small></span></th>
+        <th class="league" data-key="#24" title="Vinner: Arne Johannes Holmin (100)">#24<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27919" target="_blank" rel="noopener">Bergensliga Spring 2019 #6</a> · 13.02 · <small>6 spillere</small></span></th>
+        <th class="league" data-key="#25" title="Vinner: Espen Eidsnes (100)">#25<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28010" target="_blank" rel="noopener">Bergensliga Spring 2019 #7</a> · 27.02 · <small>6 spillere</small></span></th>
+        <th class="league" data-key="#26" title="Vinner: Espen Eidsnes (100)">#26<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28104" target="_blank" rel="noopener">Bergensliga Spring 2019 #8</a> · 13.03 · <small>6 spillere</small></span></th>
+        <th class="league" data-key="#27" title="Vinner: Espen Eidsnes (100)">#27<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28105" target="_blank" rel="noopener">Bergensliga Spring 2019 #9</a> · 20.03 · <small>6 spillere</small></span></th>
+        <th class="league" data-key="#28" title="Vinner: Espen Eidsnes (100)">#28<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28145" target="_blank" rel="noopener">Bergensliga Spring 2019 #10</a> · 27.03 · <small>5 spillere</small></span></th>
+        <th class="league" data-key="#29" title="Vinner: Espen Eidsnes (100)">#29<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28212" target="_blank" rel="noopener">Bergensliga Spring 2019 #11</a> · 03.04 · <small>6 spillere</small></span></th>
+        <th class="league" data-key="#30" title="Vinner: Hans Christian Lonne (100)">#30<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28214" target="_blank" rel="noopener">Bergensliga Spring 2019 #12</a> · 10.04 · <small>5 spillere</small></span></th>
+        <th class="league" data-key="#31" title="Vinner: Hans Christian Lonne (100)">#31<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28268" target="_blank" rel="noopener">Bergensliga Spring 2019 #13</a> · 24.04 · <small>5 spillere</small></span></th>
+        <th class="league" data-key="#32" title="Vinner: Espen Eidsnes (100)">#32<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28355" target="_blank" rel="noopener">Bergensliga Spring 2019 #14</a> · 02.05 · <small>5 spillere</small></span></th>
+        <th class="league" data-key="#33" title="Vinner: Espen Eidsnes (100)">#33<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28356" target="_blank" rel="noopener">Bergensliga Spring 2019 #15</a> · 08.05 · <small>5 spillere</small></span></th>
+        <th class="league" data-key="#34" title="Vinner: Arne Johannes Holmin (100)">#34<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28396" target="_blank" rel="noopener">Bergensliga Spring 2019 #16</a> · 15.05 · <small>5 spillere</small></span></th>
+        <th class="league" data-key="#35" title="Vinner: Trond Ove Gangsoy (100)">#35<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28417" target="_blank" rel="noopener">Bergensliga Spring 2019 #17</a> · 22.05 · <small>6 spillere</small></span></th>
+        <th class="league" data-key="#36" title="Vinner: Hans Christian Lonne (100)">#36<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28478" target="_blank" rel="noopener">Bergensliga Spring 2019 #18</a> · 05.06 · <small>4 spillere</small></span></th>
+        <th class="league" data-key="#37" title="Vinner: Arne Johannes Holmin (100)">#37<span class="th-meta"><a href="https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28502" target="_blank" rel="noopener">Bergensliga Spring 2019 #19</a> · 12.06 · <small>5 spillere</small></span></th>
+      </tr></thead><tbody>
+      <tr>
+        <td class="rank">1</td>
+        <td class="name" data-name="espen eidsnes">Espen Eidsnes</td>
+        <td class="topp17">1640</td>
+        <td><span class="chip">17</span></td>
+        <td>20</td>
+        <td>93.25</td>
+        <td>13</td>
+        <td>20</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="100">100</td>
+      </tr>
+      <tr>
+        <td class="rank">2</td>
+        <td class="name" data-name="arne johannes holmin">Arne Johannes Holmin</td>
+        <td class="topp17">1625</td>
+        <td><span class="chip">17</span></td>
+        <td>34</td>
+        <td>84.56</td>
+        <td>12</td>
+        <td>29</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="55">55</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="85">85</td>
+      </tr>
+      <tr>
+        <td class="rank">3</td>
+        <td class="name" data-name="hans christian lonne">Hans Christian Lonne</td>
+        <td class="topp17">1520</td>
+        <td><span class="chip">17</span></td>
+        <td>31</td>
+        <td>80.97</td>
+        <td>7</td>
+        <td>25</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="75">75</td>
+      </tr>
+      <tr>
+        <td class="rank">4</td>
+        <td class="name" data-name="trond ove gangsoy">Trond Ove Gangsoy</td>
+        <td class="topp17">1365</td>
+        <td><span class="chip">17</span></td>
+        <td>22</td>
+        <td>75.91</td>
+        <td>2</td>
+        <td>12</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="55">55</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="55">55</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+      </tr>
+      <tr>
+        <td class="rank">5</td>
+        <td class="name" data-name="darko mrdalj">Darko Mrdalj</td>
+        <td class="topp17">1245</td>
+        <td><span class="chip">17</span></td>
+        <td>29</td>
+        <td>67.41</td>
+        <td>0</td>
+        <td>11</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="55">55</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="50">50</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="60">60</td>
+      </tr>
+      <tr>
+        <td class="rank">6</td>
+        <td class="name" data-name="henning tvedten">Henning Tvedten</td>
+        <td class="topp17">1160</td>
+        <td><span class="chip">17</span></td>
+        <td>32</td>
+        <td>63.44</td>
+        <td>0</td>
+        <td>6</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="55">55</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="55">55</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="55">55</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="55">55</td>
+        <td class="league" data-score="55">55</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="55">55</td>
+      </tr>
+      <tr>
+        <td class="rank">7</td>
+        <td class="name" data-name="ewoud van veen">Ewoud van Veen</td>
+        <td class="topp17">405</td>
+        <td><span class="chip">5</span></td>
+        <td>5</td>
+        <td>81.00</td>
+        <td>2</td>
+        <td>3</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="65">65</td>
+      </tr>
+      <tr>
+        <td class="rank">8</td>
+        <td class="name" data-name="vegard flatoy">Vegard Flatoy</td>
+        <td class="topp17">395</td>
+        <td><span class="chip">5</span></td>
+        <td>5</td>
+        <td>79.00</td>
+        <td>1</td>
+        <td>3</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="100">100</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+      </tr>
+      <tr>
+        <td class="rank">9</td>
+        <td class="name" data-name="magnus stendal">Magnus Stendal</td>
+        <td class="topp17">220</td>
+        <td><span class="chip">3</span></td>
+        <td>3</td>
+        <td>73.33</td>
+        <td>0</td>
+        <td>2</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="75">75</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="85">85</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="60">60</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+      </tr>
+      <tr>
+        <td class="rank">10</td>
+        <td class="name" data-name="anne grethe gangsoy">Anne Grethe Gangsoy</td>
+        <td class="topp17">65</td>
+        <td><span class="chip">1</span></td>
+        <td>1</td>
+        <td>65.00</td>
+        <td>0</td>
+        <td>0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="65">65</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+      </tr>
+      <tr>
+        <td class="rank">11</td>
+        <td class="name" data-name="per ivar lonne">Per Ivar Lonne</td>
+        <td class="topp17">55</td>
+        <td><span class="chip">1</span></td>
+        <td>1</td>
+        <td>55.00</td>
+        <td>0</td>
+        <td>0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="55">55</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+      </tr>
+      <tr>
+        <td class="rank">12</td>
+        <td class="name" data-name="tage reitan">Tage Reitan</td>
+        <td class="topp17">55</td>
+        <td><span class="chip">1</span></td>
+        <td>1</td>
+        <td>55.00</td>
+        <td>0</td>
+        <td>0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="55">55</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+      </tr>
+      <tr>
+        <td class="rank">13</td>
+        <td class="name" data-name="jakob van veen">Jakob van Veen</td>
+        <td class="topp17">50</td>
+        <td><span class="chip">1</span></td>
+        <td>1</td>
+        <td>50.00</td>
+        <td>0</td>
+        <td>0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="50">50</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+      </tr>
+      <tr>
+        <td class="rank">14</td>
+        <td class="name" data-name="tor erik solem">Tor Erik Solem</td>
+        <td class="topp17">50</td>
+        <td><span class="chip">1</span></td>
+        <td>1</td>
+        <td>50.00</td>
+        <td>0</td>
+        <td>0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="50">50</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+        <td class="league" data-score="0">0</td>
+      </tr>
+      </tbody></table></div></div>
+
+    <div class="foot">Generert: 27.08.2025 20:46 · Bergensligaen i Bordhockey</div>
+  </div>
+
+    <script type="application/json" id="payload">{"tournaments": [{"key": "#1", "name": "Bergensliga Autumn 2018 #1", "date": "2018-08-15", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27320", "participants": 4, "winner": "Espen Eidsnes", "winner_points": 100}, {"key": "#2", "name": "Bergensliga Autumn 2018 #2", "date": "2018-08-22", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27013", "participants": 5, "winner": "Arne Johannes Holmin", "winner_points": 100}, {"key": "#3", "name": "Bergensliga Autumn 2018 #3", "date": "2018-08-28", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27024", "participants": 4, "winner": "Vegard Flatoy", "winner_points": 100}, {"key": "#4", "name": "Bergensliga Autumn 2018 #4", "date": "2018-09-05", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27051", "participants": 3, "winner": "Hans Christian Lonne", "winner_points": 100}, {"key": "#5", "name": "Bergensliga Autumn 2018 #5", "date": "2018-09-12", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27111", "participants": 3, "winner": "Hans Christian Lonne", "winner_points": 100}, {"key": "#6", "name": "Bergensliga Autumn 2018 #6", "date": "2018-09-19", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27133", "participants": 5, "winner": "Espen Eidsnes", "winner_points": 100}, {"key": "#7", "name": "Bergensliga Autumn 2018 #7", "date": "2018-10-04", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27239", "participants": 7, "winner": "Arne Johannes Holmin", "winner_points": 100}, {"key": "#8", "name": "Bergensliga Autumn 2018 #8", "date": "2018-10-10", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27317", "participants": 5, "winner": "Arne Johannes Holmin", "winner_points": 100}, {"key": "#9", "name": "Bergensliga Autumn 2018 #9", "date": "2018-10-17", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27306", "participants": 4, "winner": "Trond Ove Gangsoy", "winner_points": 100}, {"key": "#10", "name": "Bergensliga Autumn 2018 #10", "date": "2018-10-24", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27340", "participants": 4, "winner": "Arne Johannes Holmin", "winner_points": 100}, {"key": "#11", "name": "Bergensliga Autumn 2018 #11", "date": "2018-10-31", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27359", "participants": 7, "winner": "Arne Johannes Holmin", "winner_points": 100}, {"key": "#12", "name": "Bergensliga Autumn 2018 #12", "date": "2018-11-07", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27396", "participants": 5, "winner": "Espen Eidsnes", "winner_points": 100}, {"key": "#13", "name": "Bergensliga Autumn 2018 #13", "date": "2018-11-14", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27507", "participants": 5, "winner": "Espen Eidsnes", "winner_points": 100}, {"key": "#14", "name": "Bergensliga Autumn 2018 #14", "date": "2018-11-21", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27506", "participants": 4, "winner": "Ewoud van Veen", "winner_points": 100}, {"key": "#15", "name": "Bergensliga Autumn 2018 #15", "date": "2018-11-27", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27514", "participants": 6, "winner": "Arne Johannes Holmin", "winner_points": 100}, {"key": "#16", "name": "Bergensliga Autumn 2018 #16", "date": "2018-12-05", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27541", "participants": 4, "winner": "Arne Johannes Holmin", "winner_points": 100}, {"key": "#17", "name": "Bergensliga Autumn 2018 #17", "date": "2018-12-12", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27568", "participants": 6, "winner": "Hans Christian Lonne", "winner_points": 100}, {"key": "#18", "name": "Bergensliga Autumn 2018 #18", "date": "2018-12-19", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27695", "participants": 4, "winner": "Espen Eidsnes", "winner_points": 100}, {"key": "#19", "name": "Bergensliga Spring 2019 #1", "date": "2019-01-09", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27696", "participants": 7, "winner": "Hans Christian Lonne", "winner_points": 100}, {"key": "#20", "name": "Bergensliga Spring 2019 #2", "date": "2019-01-16", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27715", "participants": 6, "winner": "Espen Eidsnes", "winner_points": 100}, {"key": "#21", "name": "* Bergensliga Spring 2019 #3", "date": "2019-01-23", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27789", "participants": 3, "winner": "Arne Johannes Holmin", "winner_points": 100}, {"key": "#22", "name": "Bergensliga Spring 2019 #4", "date": "2019-01-30", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27890", "participants": 5, "winner": "Ewoud van Veen", "winner_points": 100}, {"key": "#23", "name": "Bergensliga Spring 2019 #5", "date": "2019-02-07", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27911", "participants": 5, "winner": "Arne Johannes Holmin", "winner_points": 100}, {"key": "#24", "name": "Bergensliga Spring 2019 #6", "date": "2019-02-13", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=27919", "participants": 6, "winner": "Arne Johannes Holmin", "winner_points": 100}, {"key": "#25", "name": "Bergensliga Spring 2019 #7", "date": "2019-02-27", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28010", "participants": 6, "winner": "Espen Eidsnes", "winner_points": 100}, {"key": "#26", "name": "Bergensliga Spring 2019 #8", "date": "2019-03-13", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28104", "participants": 6, "winner": "Espen Eidsnes", "winner_points": 100}, {"key": "#27", "name": "Bergensliga Spring 2019 #9", "date": "2019-03-20", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28105", "participants": 6, "winner": "Espen Eidsnes", "winner_points": 100}, {"key": "#28", "name": "Bergensliga Spring 2019 #10", "date": "2019-03-27", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28145", "participants": 5, "winner": "Espen Eidsnes", "winner_points": 100}, {"key": "#29", "name": "Bergensliga Spring 2019 #11", "date": "2019-04-03", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28212", "participants": 6, "winner": "Espen Eidsnes", "winner_points": 100}, {"key": "#30", "name": "Bergensliga Spring 2019 #12", "date": "2019-04-10", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28214", "participants": 5, "winner": "Hans Christian Lonne", "winner_points": 100}, {"key": "#31", "name": "Bergensliga Spring 2019 #13", "date": "2019-04-24", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28268", "participants": 5, "winner": "Hans Christian Lonne", "winner_points": 100}, {"key": "#32", "name": "Bergensliga Spring 2019 #14", "date": "2019-05-02", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28355", "participants": 5, "winner": "Espen Eidsnes", "winner_points": 100}, {"key": "#33", "name": "Bergensliga Spring 2019 #15", "date": "2019-05-08", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28356", "participants": 5, "winner": "Espen Eidsnes", "winner_points": 100}, {"key": "#34", "name": "Bergensliga Spring 2019 #16", "date": "2019-05-15", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28396", "participants": 5, "winner": "Arne Johannes Holmin", "winner_points": 100}, {"key": "#35", "name": "Bergensliga Spring 2019 #17", "date": "2019-05-22", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28417", "participants": 6, "winner": "Trond Ove Gangsoy", "winner_points": 100}, {"key": "#36", "name": "Bergensliga Spring 2019 #18", "date": "2019-06-05", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28478", "participants": 4, "winner": "Hans Christian Lonne", "winner_points": 100}, {"key": "#37", "name": "Bergensliga Spring 2019 #19", "date": "2019-06-12", "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=28502", "participants": 5, "winner": "Arne Johannes Holmin", "winner_points": 100}], "generated_at": "2025-08-27T20:46:01", "top_n": 17}</script>
+  <script>
+    const $ = (s,r=document)=>r.querySelector(s); const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+    const tbl = $("#tbl"), toggleBtn = $("#toggle");
+
+    const payload = JSON.parse($("#payload").textContent);
+
+    // season dropdown (go to table file)
+    $("#seasonSelect").addEventListener("change", e => { if(e.target.value) location.href = e.target.value; });
+
+    // stats cards
+    (function(){ 
+      const players = $$("#tbl tbody tr").length;
+      const leagues = $$("#tbl thead th.league").length;
+      const parts = payload.tournaments.map(t=>t.participants||0);
+      const maxp = parts.length?Math.max(...parts):0;
+      const avgp = parts.length?Math.round(parts.reduce((a,b)=>a+b,0)/parts.length):0;
+      $("#stat_players").textContent=players; $("#stat_leagues").textContent=leagues;
+      $("#stat_maxpart").textContent=maxp; $("#stat_avgpart").textContent=avgp;
+    })();
+
+    // toggle league columns
+    toggleBtn.addEventListener("click", () => { 
+      tbl.classList.toggle("collapsed");
+      toggleBtn.textContent = tbl.classList.contains("collapsed") ? "Vis alle ligaer" : "Skjul ligaer";
+    });
+
+    // click-to-sort
+    let sortState={key:"Topp 17",dir:"desc"};
+    function cellVal(tr, idx){ const t=tr.children[idx]?.textContent.trim()||""; const n=Number(t.replace(",", ".")); return isNaN(n)?t:n; }
+    function sortBy(th){ 
+      const ths=$$("#tbl thead th"); const idx=ths.findIndex(x=>x===th);
+      const key=th.dataset.key||""; const dir=(sortState.key===key&&sortState.dir==="asc")?"desc":"asc";
+      sortState={key,dir};
+      const rows=$$("#tbl tbody tr");
+      rows.sort((a,b)=>{ const va=cellVal(a,idx), vb=cellVal(b,idx);
+        return (typeof va==="number"&&typeof vb==="number") ? (dir==="asc"?va-vb:vb-va)
+               : (dir==="asc"?String(va).localeCompare(String(vb)):String(vb).localeCompare(String(va))); });
+      const tb=$("#tbl tbody"); rows.forEach(r=>tb.appendChild(r));
+      ths.forEach(h=>h.setAttribute("aria-sort","none"));
+      th.setAttribute("aria-sort", dir==="asc" ? "ascending" : "descending");
+    }
+    $$("#tbl thead th").forEach(th => th.addEventListener("click", () => sortBy(th)));
+  </script>
+</body>
+</html>

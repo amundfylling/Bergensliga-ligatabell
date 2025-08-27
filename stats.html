@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bergensligaen – Sesongoversikt</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root { --primary:#1e40af; --primary-600:#1e3a8a; --border:#e5e7eb; --radius:12px; --muted:#6b7280; }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:Inter, system-ui, sans-serif; background:#f5f7fb; color:#0f172a; }
+    .wrap { max-width:1200px; margin:0 auto; padding:24px; }
+    h1 { margin:0 0 6px; font-weight:800; }
+    .sub { margin:0 0 16px; color:#334155 }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; }
+    .card { background:#fff; border:1px solid var(--border); border-radius:var(--radius); padding:14px; }
+    .card h3 { margin:0 0 8px; font-weight:700; }
+    .card p { margin:0; color:#475569; }
+    .val { font-size:26px; font-weight:800; }
+    ol { margin:0 0 0 18px; }
+    table { width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+    th, td { padding:10px; border-bottom:1px solid var(--border); font-size:14px; }
+    th { text-align:left; background:#f8fafc; }
+    tr:last-child td { border-bottom:none; }
+    .charts { display:grid; grid-template-columns:1fr; gap:14px; }
+    @media (min-width: 900px) { .charts { grid-template-columns:1fr 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Sesongoversikt – Bergensligaen</h1>
+    <div class="sub">Topp-lister på tvers av alle sesonger + utvikling per sesong</div>
+
+    <div class="grid" style="margin-bottom:16px;">
+      <div class="card">
+        <h3>Flest sesongtitler (Top 10)</h3>
+        <ol id="ol_titles"></ol>
+      </div>
+      <div class="card">
+        <h3>Flest sesong-Pallplasseringer (Top 10)</h3>
+        <ol id="ol_podiums"></ol>
+      </div>
+      <div class="card">
+        <h3>Flest ligadeltakelser totalt (Top 10)</h3>
+        <ol id="ol_attended"></ol>
+      </div>
+      <div class="card">
+        <h3>Flest turneringsseire totalt (Top 10)</h3>
+        <ol id="ol_twins"></ol>
+      </div>
+    </div>
+
+    <div class="charts">
+      <div class="card">
+        <h3>Maks deltakere pr. sesong</h3>
+        <canvas id="chMax"></canvas>
+      </div>
+      <div class="card">
+        <h3>Snitt deltakere pr. sesong</h3>
+        <canvas id="chAvg"></canvas>
+      </div>
+      <div class="card">
+        <h3>Antall unike spillere pr. sesong</h3>
+        <canvas id="chPlayers"></canvas>
+      </div>
+      <div class="card">
+        <h3>Antall ligaer pr. sesong</h3>
+        <canvas id="chLeagues"></canvas>
+      </div>
+    </div>
+
+    <h2 style="margin:18px 0 8px;">Tabell – nøkkeltall pr. sesong</h2>
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Sesong</th>
+            <th>Unike spillere</th>
+            <th>Antall ligaer</th>
+            <th>Maks deltakere</th>
+            <th>Snitt deltakere</th>
+          </tr>
+        </thead>
+        <tbody id="tbodySeason"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="application/json" id="payload">{"seasons": ["2003/2004", "2004/2005", "2005/2006", "2006/2007", "2007/2008", "2008/2009", "2009/2010", "2010/2011", "2011/2012", "2012/2013", "2013/2014", "2014/2015", "2015/2016", "2016/2017", "2017/2018", "2018/2019", "2019/2020", "2020/2021", "2021/2022", "2022/2023", "2023/2024", "2024/2025", "2025/2026"], "series": {"players": [32, 40, 36, 32, 34, 22, 15, 23, 48, 48, 37, 31, 30, 27, 14, 14, 12, 14, 14, 23, 29, 25, 5], "leagues": [24, 34, 31, 35, 38, 30, 23, 37, 41, 40, 41, 40, 40, 39, 39, 37, 20, 21, 20, 27, 32, 31, 1], "maxParticipants": [10, 16, 15, 14, 18, 10, 8, 11, 20, 22, 22, 16, 11, 13, 8, 7, 7, 9, 7, 15, 13, 13, 5], "avgParticipants": [6, 11, 9, 9, 10, 6, 5, 5, 10, 14, 12, 10, 8, 6, 5, 5, 5, 6, 5, 5, 8, 8, 5]}, "leaderboards": {"seasonTitles": [{"name": "Arne Johannes Holmin", "val": 5}, {"name": "Daniel Nygard", "val": 4}, {"name": "Espen Eidsnes", "val": 4}, {"name": "Hans Christian Lonne", "val": 3}, {"name": "Andreas Roren", "val": 2}, {"name": "Bjorn Hagerup Roken", "val": 2}, {"name": "Svein Olav Humberset", "val": 2}, {"name": "Stian Ostrem \"Power Gym\"", "val": 1}], "seasonPodiums": [{"name": "Arne Johannes Holmin", "val": 19}, {"name": "Trond Ove Gangsoy", "val": 11}, {"name": "Hans Christian Lonne", "val": 8}, {"name": "Espen Eidsnes", "val": 5}, {"name": "Andreas Roren", "val": 4}, {"name": "Daniel Nygard", "val": 4}, {"name": "Bjorn Hagerup Roken", "val": 3}, {"name": "Ewoud van Veen", "val": 3}, {"name": "Stian Ostrem \"Power Gym\"", "val": 2}, {"name": "Svein Olav Humberset", "val": 2}], "mostLeaguesAttended": [{"name": "Arne Johannes Holmin", "val": 619}, {"name": "Trond Ove Gangsoy", "val": 506}, {"name": "Hans Christian Lonne", "val": 302}, {"name": "Espen Eidsnes", "val": 295}, {"name": "Darko Mrdalj", "val": 289}, {"name": "Ewoud van Veen", "val": 270}, {"name": "Henning Tvedten", "val": 232}, {"name": "Vegard Flatoy", "val": 201}, {"name": "Svein Arne Fure", "val": 174}, {"name": "Anne Grethe Gangsoy", "val": 164}], "tournamentWins": [{"name": "Arne Johannes Holmin", "val": 136}, {"name": "Espen Eidsnes", "val": 97}, {"name": "Trond Ove Gangsoy", "val": 87}, {"name": "Hans Christian Lonne", "val": 74}, {"name": "Daniel Nygard", "val": 51}, {"name": "Andreas Roren", "val": 45}, {"name": "Bjorn Hagerup Roken", "val": 34}, {"name": "Stian Ostrem \"Power Gym\"", "val": 34}, {"name": "Ewoud van Veen", "val": 33}, {"name": "Svein Olav Humberset", "val": 23}]}}</script>
+  <script>
+    // -------- helpers --------
+    const data = JSON.parse(document.getElementById('payload').textContent);
+    const $ = (s,r=document)=>r.querySelector(s);
+
+    function fillOrderedList(olEl, arr) {
+      olEl.innerHTML = "";
+      arr.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item.name + " – " + item.val;
+        olEl.appendChild(li);
+      });
+    }
+
+    function renderLeaderboards() {
+      fillOrderedList(document.getElementById("ol_titles"),   data.leaderboards.seasonTitles);
+      fillOrderedList(document.getElementById("ol_podiums"),  data.leaderboards.seasonPodiums);
+      fillOrderedList(document.getElementById("ol_attended"), data.leaderboards.mostLeaguesAttended);
+      fillOrderedList(document.getElementById("ol_twins"),    data.leaderboards.tournamentWins);
+    }
+
+    function renderSeasonTable() {
+      const tb = document.getElementById("tbodySeason");
+      tb.innerHTML = "";
+      const seasons = data.seasons;
+      const players = data.series.players;
+      const leagues = data.series.leagues;
+      const maxP = data.series.maxParticipants;
+      const avgP = data.series.avgParticipants;
+      for (let i=0; i<seasons.length; i++) {
+        const tr = document.createElement("tr");
+        const td0 = document.createElement("td"); td0.textContent = seasons[i];
+        const td1 = document.createElement("td"); td1.textContent = players[i];
+        const td2 = document.createElement("td"); td2.textContent = leagues[i];
+        const td3 = document.createElement("td"); td3.textContent = maxP[i];
+        const td4 = document.createElement("td"); td4.textContent = avgP[i];
+        tr.appendChild(td0); tr.appendChild(td1); tr.appendChild(td2); tr.appendChild(td3); tr.appendChild(td4);
+        tb.appendChild(tr);
+      }
+    }
+
+    function lineChart(id, labels, series, label) {
+      const ctx = document.getElementById(id).getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{ label: label, data: series, tension: 0.25, fill: false }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            x: { ticks: { autoSkip: true, maxRotation: 0 } },
+            y: { beginAtZero: true, ticks: { precision: 0 } }
+          },
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      });
+    }
+
+    function renderCharts() {
+      const labels = data.seasons;
+      lineChart("chMax",     labels, data.series.maxParticipants, "Maks deltakere");
+      lineChart("chAvg",     labels, data.series.avgParticipants, "Snitt deltakere");
+      lineChart("chPlayers", labels, data.series.players,         "Unike spillere");
+      lineChart("chLeagues", labels, data.series.leagues,         "Antall ligaer");
+    }
+
+    // init
+    renderLeaderboards();
+    renderSeasonTable();
+    renderCharts();
+  </script>
+</body>
+</html>
