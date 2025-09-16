@@ -13711,6 +13711,24 @@
         "Oline Holmin Brunvoll": 3,
         "Hakon Hugdahl Larsen": 4
       }
+    },
+    "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=34943": {
+      "season": "2025/2026",
+      "name": "Bergensliga Autumn 2025 #5",
+      "date": "2025-09-16",
+      "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=34943",
+      "participants": 7,
+      "winner": "Arne Johannes Holmin",
+      "winner_points": 100,
+      "results": {
+        "Arne Johannes Holmin": 1,
+        "Daniel Nygard": 2,
+        "Eivind Muri Pettersen": 3,
+        "Trond Ove Gangsoy": 4,
+        "Oline Holmin Brunvoll": 5,
+        "Hakon Hugdahl Larsen": 6,
+        "Tomas Hoven Skauge": 7
+      }
     }
   }
 }
