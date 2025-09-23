@@ -13729,6 +13729,22 @@
         "Hakon Hugdahl Larsen": 6,
         "Tomas Hoven Skauge": 7
       }
+    },
+    "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=34970": {
+      "season": "2025/2026",
+      "name": "Bergensliga Autumn 2025 #6",
+      "date": "2025-09-23",
+      "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=34970",
+      "participants": 5,
+      "winner": "Daniel Nygard",
+      "winner_points": 100,
+      "results": {
+        "Daniel Nygard": 1,
+        "Arne Johannes Holmin": 2,
+        "Oline Holmin Brunvoll": 3,
+        "Hakon Hugdahl Larsen": 4,
+        "Tomas Hoven Skauge": 5
+      }
     }
   }
 }
