@@ -13764,6 +13764,22 @@
         "Isla Tufteland": 7,
         "Tomas Hoven Skauge": 8
       }
+    },
+    "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=35037": {
+      "season": "2025/2026",
+      "name": "Bergensliga Autumn 2025 #8",
+      "date": "2025-10-14",
+      "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=35037",
+      "participants": 5,
+      "winner": "Daniel Nygard",
+      "winner_points": 100,
+      "results": {
+        "Daniel Nygard": 1,
+        "Trond Ove Gangsoy": 2,
+        "Arne Johannes Holmin": 3,
+        "Oline Holmin Brunvoll": 4,
+        "Tomas Hoven Skauge": 5
+      }
     }
   }
 }
