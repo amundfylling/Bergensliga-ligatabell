@@ -13850,6 +13850,40 @@
         "Tomas Hoven Skauge": 8,
         "Laura Revheim": 9
       }
+    },
+    "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=35162": {
+      "season": "2025/2026",
+      "name": "Bergensliga Autumn 2025 #12",
+      "date": "2025-11-11",
+      "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=35162",
+      "participants": 6,
+      "winner": "Daniel Nygard",
+      "winner_points": 100,
+      "results": {
+        "Daniel Nygard": 1,
+        "Arne Johannes Holmin": 2,
+        "Oline Holmin Brunvoll": 3,
+        "Tomas Hoven Skauge": 4,
+        "Hakon Hugdahl Larsen": 5,
+        "Albin Holmin Brunvoll": 6
+      }
+    },
+    "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=35193": {
+      "season": "2025/2026",
+      "name": "Bergensliga Autumn 2025 #13",
+      "date": "2025-11-18",
+      "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=35193",
+      "participants": 6,
+      "winner": "Daniel Nygard",
+      "winner_points": 100,
+      "results": {
+        "Daniel Nygard": 1,
+        "Arne Johannes Holmin": 2,
+        "Oline Holmin Brunvoll": 3,
+        "Hakon Hugdahl Larsen": 4,
+        "Tomas Hoven Skauge": 5,
+        "Albin Holmin Brunvoll": 6
+      }
     }
   }
 }
