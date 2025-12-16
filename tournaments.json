@@ -13938,6 +13938,23 @@
         "Albin Holmin Brunvoll": 6,
         "Hakon Hugdahl Larsen": 7
       }
+    },
+    "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=35308": {
+      "season": "2025/2026",
+      "name": "Bergensliga Autumn 2025 #17",
+      "date": "2025-12-16",
+      "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=35308",
+      "participants": 6,
+      "winner": "Trond Ove Gangsoy",
+      "winner_points": 100,
+      "results": {
+        "Trond Ove Gangsoy": 1,
+        "Arne Johannes Holmin": 2,
+        "Oline Holmin Brunvoll": 3,
+        "Tomas Hoven Skauge": 4,
+        "Laura Revheim": 5,
+        "Albin Holmin Brunvoll": 6
+      }
     }
   }
 }
