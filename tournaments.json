@@ -14110,6 +14110,24 @@
         "Kanutte Holmin Brunvoll": 7,
         "Isla Tufteland": 8
       }
+    },
+    "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=35755": {
+      "season": "2025/2026",
+      "name": "Bergensliga Spring 2026 #9",
+      "date": "2026-03-24",
+      "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=35755",
+      "participants": 7,
+      "winner": "Trond Ove Gangsoy",
+      "winner_points": 100,
+      "results": {
+        "Trond Ove Gangsoy": 1,
+        "Arne Johannes Holmin": 2,
+        "Oline Holmin Brunvoll": 3,
+        "Tomas Hoven Skauge": 4,
+        "Hakon Hugdahl Larsen": 5,
+        "Laura Revheim": 6,
+        "Albin Holmin Brunvoll": 7
+      }
     }
   }
 }
