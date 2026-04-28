@@ -14164,6 +14164,29 @@
         "Laura Revheim": 6,
         "Albin Holmin Brunvoll": 7
       }
+    },
+    "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=35859": {
+      "season": "2025/2026",
+      "name": "Bergensliga Spring 2026 #12",
+      "date": "2026-04-21",
+      "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=35859",
+      "participants": 12,
+      "winner": "Daniel Nygard",
+      "winner_points": 100,
+      "results": {
+        "Daniel Nygard": 1,
+        "Arne Johannes Holmin": 2,
+        "Anne Grethe Gangsoy": 3,
+        "Trond Ove Gangsoy": 4,
+        "Mona Gangsoy": 5,
+        "Hakon Hugdahl Larsen": 6,
+        "Oline Holmin Brunvoll": 7,
+        "Linnea Gangsoy": 8,
+        "Julia Carina Gangsoy": 9,
+        "Tomas Hoven Skauge": 10,
+        "Laura Revheim": 11,
+        "Albin Holmin Brunvoll": 12
+      }
     }
   }
 }
