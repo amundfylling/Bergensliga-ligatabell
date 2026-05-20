@@ -14205,6 +14205,64 @@
         "Laura Revheim": 6,
         "Albin Holmin Brunvoll": 7
       }
+    },
+    "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=35947": {
+      "season": "2025/2026",
+      "name": "Bergensliga Spring 2026 #13",
+      "date": "2026-04-28",
+      "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=35947",
+      "participants": 8,
+      "winner": "Daniel Nygard",
+      "winner_points": 100,
+      "results": {
+        "Daniel Nygard": 1,
+        "Arne Johannes Holmin": 2,
+        "Oline Holmin Brunvoll": 3,
+        "Trond Ove Gangsoy": 4,
+        "Hakon Hugdahl Larsen": 5,
+        "Laura Revheim": 6,
+        "Tomas Hoven Skauge": 7,
+        "Albin Holmin Brunvoll": 8
+      }
+    },
+    "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=35948": {
+      "season": "2025/2026",
+      "name": "Bergensliga Spring 2026 #15",
+      "date": "2026-05-12",
+      "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=35948",
+      "participants": 10,
+      "winner": "Daniel Nygard",
+      "winner_points": 100,
+      "results": {
+        "Daniel Nygard": 1,
+        "Hans Christian Lonne": 2,
+        "Arne Johannes Holmin": 3,
+        "Trond Ove Gangsoy": 4,
+        "Oline Holmin Brunvoll": 5,
+        "Hakon Hugdahl Larsen": 6,
+        "Tomas Hoven Skauge": 7,
+        "Laura Revheim": 8,
+        "Albin Holmin Brunvoll": 9,
+        "Frida Kampel": 10
+      }
+    },
+    "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=35992": {
+      "season": "2025/2026",
+      "name": "Bergensliga Spring 2026 #16",
+      "date": "2026-05-19",
+      "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=35992",
+      "participants": 7,
+      "winner": "Daniel Nygard",
+      "winner_points": 100,
+      "results": {
+        "Daniel Nygard": 1,
+        "Arne Johannes Holmin": 2,
+        "Oline Holmin Brunvoll": 3,
+        "Tomas Hoven Skauge": 4,
+        "Hakon Hugdahl Larsen": 5,
+        "Laura Revheim": 6,
+        "Albin Holmin Brunvoll": 7
+      }
     }
   }
 }
