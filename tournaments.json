@@ -14338,6 +14338,25 @@
         "Laura Revheim": 9,
         "Albin Holmin Brunvoll": 10
       }
+    },
+    "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=36224": {
+      "season": "2026/2027",
+      "name": "Bergensliga Autumn 2026 #1",
+      "date": "2026-08-18",
+      "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=36224",
+      "participants": 8,
+      "winner": "Arne Johannes Holmin",
+      "winner_points": 100,
+      "results": {
+        "Arne Johannes Holmin": 1,
+        "Daniel Nygard": 2,
+        "Henning Tvedten": 3,
+        "Oline Holmin Brunvoll": 4,
+        "Hakon Hugdahl Larsen": 5,
+        "Tomas Hoven Skauge": 6,
+        "Kanutte Holmin Brunvoll": 7,
+        "Albin Holmin Brunvoll": 8
+      }
     }
   }
 }
