@@ -14357,6 +14357,42 @@
         "Kanutte Holmin Brunvoll": 7,
         "Albin Holmin Brunvoll": 8
       }
+    },
+    "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=36241": {
+      "season": "2026/2027",
+      "name": "Bergensliga Autumn 2026 #2",
+      "date": "2026-08-25",
+      "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=36241",
+      "participants": 5,
+      "winner": "Daniel Nygard",
+      "winner_points": 100,
+      "results": {
+        "Daniel Nygard": 1,
+        "Arne Johannes Holmin": 2,
+        "Hakon Hugdahl Larsen": 3,
+        "Trond Ove Gangsoy": 4,
+        "Tomas Hoven Skauge": 5
+      }
+    },
+    "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=36259": {
+      "season": "2026/2027",
+      "name": "Bergensliga Autumn 2026 #3",
+      "date": "2026-09-01",
+      "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=36259",
+      "participants": 9,
+      "winner": "Espen Eidsnes",
+      "winner_points": 100,
+      "results": {
+        "Espen Eidsnes": 1,
+        "Daniel Nygard": 2,
+        "Arne Johannes Holmin": 3,
+        "Hakon Hugdahl Larsen": 4,
+        "Tomas Hoven Skauge": 5,
+        "Oline Holmin Brunvoll": 6,
+        "Laura Revheim": 7,
+        "Kanutte Holmin Brunvoll": 8,
+        "Albin Holmin Brunvoll": 9
+      }
     }
   }
 }
