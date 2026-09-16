@@ -14393,6 +14393,22 @@
         "Kanutte Holmin Brunvoll": 8,
         "Albin Holmin Brunvoll": 9
       }
+    },
+    "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=36279": {
+      "season": "2026/2027",
+      "name": "Bergensliga Autumn 2026 #4",
+      "date": "2026-09-08",
+      "url": "https://stiga.trefik.cz/ithf/ranking/tournament.aspx?id=36279",
+      "participants": 5,
+      "winner": "Daniel Nygard",
+      "winner_points": 100,
+      "results": {
+        "Daniel Nygard": 1,
+        "Arne Johannes Holmin": 2,
+        "Hakon Hugdahl Larsen": 3,
+        "Tomas Hoven Skauge": 4,
+        "Kanutte Holmin Brunvoll": 5
+      }
     }
   }
 }
